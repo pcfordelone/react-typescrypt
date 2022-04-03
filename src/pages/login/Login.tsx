@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { InputLogin } from "./components/InputLogin";
 
 export const Login: React.FC = () => {
   // useRef
-  const inputPasswordRef = useRef<HTMLInputElement>(null); 
+  const inputPasswordRef = useRef<HTMLInputElement>(null);
   // useState
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,12 +16,15 @@ export const Login: React.FC = () => {
   }, [count]);
 
   useMemo(() => {}, []);
-  
-  const handleLogin = useCallback((e) => {
+
+  const handleLogin = useCallback(
+    (e) => {
       e.preventDefault();
-      console.log('E-mail: ' + email + '/ Password: ' + password);
-      console.log(inputPasswordRef.current);      
-  }, [email, password]);
+      console.log("E-mail: " + email + "/ Password: " + password);
+      console.log(inputPasswordRef.current);
+    },
+    [email, password]
+  );
 
   return (
     <div>
@@ -32,17 +36,22 @@ export const Login: React.FC = () => {
       E-mail: {email} / Senha: {password}
       <hr />
       <form>
-        <label htmlFor="email">
-          <span>E-mail</span>
-          <input
-            name="email"
-            type="email"
-            placeholder="email"            
-            onChange={(e) => setEmail(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' ?? console.log(inputPasswordRef.current)}
-          />
-        </label>
-        <label htmlFor="password">
+        <InputLogin
+          label="E-mail"
+          name="email"
+          type="email"
+          onChange={(newValue) => setEmail(newValue)}
+          onPressEnter={() => inputPasswordRef.current?.focus()}
+        />
+        <InputLogin
+          label="Password"
+          name="password"
+          type="password"
+          onChange={(newValue) => setPassword(newValue)}
+          ref={inputPasswordRef}
+        />
+
+        {/* <label htmlFor="password">
           <span>Password</span>
           <input
             name="password"
@@ -51,10 +60,11 @@ export const Login: React.FC = () => {
             ref={inputPasswordRef}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="button" onClick={handleLogin}>
-            Entrar
-          </button>
-        </label>
+        </label> */}
+
+        <button type="submit" onClick={handleLogin}>
+          Entrar
+        </button>
       </form>
     </div>
   );
