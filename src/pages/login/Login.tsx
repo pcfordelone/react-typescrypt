@@ -1,39 +1,57 @@
-import { useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 export const Login: React.FC = () => {
+  // useRef
+  const inputPasswordRef = useRef<HTMLInputElement>(null); 
+  // useState
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [count, setCount] = useState(0);
 
-  const handleLogin = (e: any) => {
-    e.preventDefault();
-    console.log(email, password);
-  };
+  // useEffect
+  useEffect(() => {
+    document.title = `Você clicou ${count} vezes`;
+    console.log(`Você clicou ${count} vezes`);
+  }, [count]);
 
-  console.log("email: " + email, "/ password: " + password )
+  useMemo(() => {}, []);
+  
+  const handleLogin = useCallback((e) => {
+      e.preventDefault();
+      console.log('E-mail: ' + email + '/ Password: ' + password);
+      console.log(inputPasswordRef.current);      
+  }, [email, password]);
 
   return (
     <div>
-      <h1>Login</h1>
+      {/* UseEffect */}
+      <p>Você clicou {count} vezes</p>
+      <button onClick={() => setCount(count + 1)}>Clique aqui</button>
+      {/* UseState */}
+      <hr />
+      E-mail: {email} / Senha: {password}
       <hr />
       <form>
         <label htmlFor="email">
           <span>E-mail</span>
           <input
-            onChange={(e) => setEmail(e.target.value)}
             name="email"
             type="email"
-            placeholder="email"
+            placeholder="email"            
+            onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' ?? console.log(inputPasswordRef.current)}
           />
         </label>
         <label htmlFor="password">
           <span>Password</span>
           <input
-            onChange={(e) => setPassword(e.target.value)}
             name="password"
             type="password"
             placeholder="password"
+            ref={inputPasswordRef}
+            onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit" onClick={handleLogin}>
+          <button type="button" onClick={handleLogin}>
             Entrar
           </button>
         </label>
