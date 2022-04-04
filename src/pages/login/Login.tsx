@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ButtonLogin } from "./components/ButtonLogin";
 import { InputLogin } from "./components/InputLogin";
 
 export const Login: React.FC = () => {
@@ -18,8 +19,8 @@ export const Login: React.FC = () => {
   useMemo(() => {}, []);
 
   const handleLogin = useCallback(
-    (e) => {
-      e.preventDefault();
+    () => {
+      // e.preventDefault();
       console.log("E-mail: " + email + "/ Password: " + password);
       console.log(inputPasswordRef.current);
     },
@@ -62,9 +63,15 @@ export const Login: React.FC = () => {
           />
         </label> */}
 
-        <button type="submit" onClick={handleLogin}>
+        <ButtonLogin 
+          buttonType="button"
+          onclick={handleLogin}
+        >
+          Click
+        </ButtonLogin>
+        {/* <button type="submit" onClick={handleLogin}>
           Entrar
-        </button>
+        </button> */}
       </form>
     </div>
   );

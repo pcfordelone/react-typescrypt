@@ -25,6 +25,7 @@ export const Concepts: React.FC = () => {
       <h2>Components</h2>
       <ul>
         <li>Componente Customizados</li>
+        <li>Passando filhos para componentes</li>
       </ul>
     </div>
   );
