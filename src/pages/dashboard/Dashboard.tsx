@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
+import { LoggedInUserContext } from "../../shared/contexts";
 
 export const Dashboard: React.FC = () => {
   const counterRef = useRef(0)
+  const { userName } = useContext(LoggedInUserContext);
 
   return (
     <div className="dashboard">
-      <h1>Dashboard</h1>
+      <h1>Dashboard <small>({userName})</small></h1>
       <p>
         Counter: {counterRef.current}
       </p>
